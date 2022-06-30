@@ -77,7 +77,10 @@ public class SuperMarketHome extends javax.swing.JFrame {
                 ps.close();
                 rs.close();
             }else{
-                welcomeLabel.setText("Welcome Guest User!");
+                profileButton.setEnabled(false);
+                employeeButton.setEnabled(false);
+                productsButton.setEnabled(false);
+                welcomeLabel.setText("Welcome Guest User! Login to continue");
             }
         }catch(Exception e){
            JOptionPane.showMessageDialog(null, e);
@@ -98,7 +101,7 @@ public class SuperMarketHome extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         profileButton = new javax.swing.JButton();
         employeeButton = new javax.swing.JButton();
-        productsButton1 = new javax.swing.JButton();
+        productsButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         welcomeLabel = new javax.swing.JLabel();
         totalEmployees = new javax.swing.JButton();
@@ -137,15 +140,15 @@ public class SuperMarketHome extends javax.swing.JFrame {
             }
         });
 
-        productsButton1.setBackground(new java.awt.Color(79, 55, 232));
-        productsButton1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        productsButton1.setForeground(new java.awt.Color(255, 255, 255));
-        productsButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\snish\\Downloads\\Circle-icons-dolly.svg.png")); // NOI18N
-        productsButton1.setText("  Products");
-        productsButton1.setContentAreaFilled(false);
-        productsButton1.addActionListener(new java.awt.event.ActionListener() {
+        productsButton.setBackground(new java.awt.Color(79, 55, 232));
+        productsButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        productsButton.setForeground(new java.awt.Color(255, 255, 255));
+        productsButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\snish\\Downloads\\Circle-icons-dolly.svg.png")); // NOI18N
+        productsButton.setText("  Products");
+        productsButton.setContentAreaFilled(false);
+        productsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productsButton1ActionPerformed(evt);
+                productsButtonActionPerformed(evt);
             }
         });
 
@@ -171,7 +174,7 @@ public class SuperMarketHome extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(employeeButton)
                             .addComponent(profileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(productsButton1))
+                            .addComponent(productsButton))
                         .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,7 +188,7 @@ public class SuperMarketHome extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(employeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(productsButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(productsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
@@ -286,10 +289,10 @@ public class SuperMarketHome extends javax.swing.JFrame {
         new SuperMarketEmployee().setVisible(true);
     }//GEN-LAST:event_employeeButtonActionPerformed
 
-    private void productsButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productsButton1ActionPerformed
+    private void productsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productsButtonActionPerformed
         this.setVisible(false);
         new SuperMarketProducts().setVisible(true);
-    }//GEN-LAST:event_productsButton1ActionPerformed
+    }//GEN-LAST:event_productsButtonActionPerformed
 
     private void totalEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalEmployeesActionPerformed
         // TODO add your handling code here:
@@ -336,7 +339,7 @@ public class SuperMarketHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton logoutButton;
-    private javax.swing.JButton productsButton1;
+    private javax.swing.JButton productsButton;
     private javax.swing.JButton profileButton;
     private javax.swing.JButton totalEmployees;
     private javax.swing.JButton totalProducts;

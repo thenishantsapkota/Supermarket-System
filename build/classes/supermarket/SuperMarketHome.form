@@ -112,7 +112,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="employeeButton" min="-2" max="-2" attributes="0"/>
                                   <Component id="profileButton" alignment="1" min="-2" pref="188" max="-2" attributes="0"/>
-                                  <Component id="productsButton1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="productsButton" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
@@ -132,7 +132,7 @@
                       <EmptySpace pref="27" max="32767" attributes="0"/>
                       <Component id="employeeButton" min="-2" pref="82" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="productsButton1" min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="productsButton" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="logoutButton" min="-2" pref="53" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -183,7 +183,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="employeeButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="productsButton1">
+            <Component class="javax.swing.JButton" name="productsButton">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="e8" green="37" red="4f" type="rgb"/>
@@ -201,7 +201,7 @@
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="productsButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="productsButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="logoutButton">

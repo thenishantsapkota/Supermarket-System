@@ -7,6 +7,8 @@ package supermarket;
 import SupermarketDatabase.SupermarketDatabaseHandler;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author snish
  */
 public class SuperMarketProducts extends javax.swing.JFrame {
+    String myId;
     Connection con = null;
     CallableStatement csmt = null;
     ResultSet rs = null;
@@ -30,6 +33,11 @@ public class SuperMarketProducts extends javax.swing.JFrame {
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+        this.getProductData();
+        this.mouseEvent();
+    }
+    
+    private void getProductData(){
         try{
             String sql = "select * from product_tbl";
             ps = con.prepareStatement(sql);
@@ -48,6 +56,46 @@ public class SuperMarketProducts extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
+    private void mouseEvent(){
+        myTable.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                try{
+                    String id = (String) myTable.getValueAt(myTable.getSelectedRow(),0);
+                    myId = id;
+                    String getSql = "select * from product_tbl where id=?";
+                    ps = con.prepareStatement(getSql);
+                    ps.setString(1, myId);
+                    rs = ps.executeQuery();
+                    if(rs.next()){
+                        productName.setText(rs.getString("name"));
+                        productExpiry.setText(rs.getString("expiry"));
+                        productPrice.setText(rs.getString("price"));
+                        ps.close();
+                        rs.close();
+            }
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        
+    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -72,6 +120,8 @@ public class SuperMarketProducts extends javax.swing.JFrame {
         productExpiry = new javax.swing.JTextField();
         productPrice = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        deleteButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -200,17 +250,48 @@ public class SuperMarketProducts extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        deleteButton.setBackground(new java.awt.Color(79, 55, 232));
+        deleteButton.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
+        deleteButton.setText("Delete Product");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        updateButton.setBackground(new java.awt.Color(79, 55, 232));
+        updateButton.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        updateButton.setForeground(new java.awt.Color(255, 255, 255));
+        updateButton.setText("Update Product");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(115, 115, 115)
+                                .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(148, 148, 148)
+                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel1)))
+                        .addContainerGap(51, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +300,11 @@ public class SuperMarketProducts extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -278,6 +363,37 @@ public class SuperMarketProducts extends javax.swing.JFrame {
         new SuperMarketHome().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        try{
+           String sql = "delete from product_tbl where id=?";
+           ps = con.prepareStatement(sql);
+           ps.setString(1, myId);
+           ps.execute();
+           JOptionPane.showMessageDialog(null, "Product deleted successfully!");
+           this.setVisible(false);
+           new SuperMarketProducts().setVisible(true);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        try{
+            String sql = "update product_tbl set name=?, expiry=?, price=? where id=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, productName.getText());
+            ps.setString(2, productExpiry.getText());
+            ps.setString(3, productPrice.getText());
+            ps.setString(4, myId);
+            ps.execute();
+            JOptionPane.showMessageDialog(null, "Product updated successfully!");
+            this.setVisible(false);
+            new SuperMarketProducts().setVisible(true);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_updateButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -316,6 +432,7 @@ public class SuperMarketProducts extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addProductsButton;
     private javax.swing.JButton backButton;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -328,6 +445,7 @@ public class SuperMarketProducts extends javax.swing.JFrame {
     private javax.swing.JTextField productExpiry;
     private javax.swing.JTextField productName;
     private javax.swing.JTextField productPrice;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 
 }
