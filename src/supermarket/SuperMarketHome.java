@@ -81,6 +81,7 @@ public class SuperMarketHome extends javax.swing.JFrame {
                 employeeButton.setEnabled(false);
                 productsButton.setEnabled(false);
                 welcomeLabel.setText("Welcome Guest User! Login to continue");
+                logoutButton.setText("Login");
             }
         }catch(Exception e){
            JOptionPane.showMessageDialog(null, e);
